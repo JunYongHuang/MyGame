@@ -1,0 +1,14 @@
+require "lua.BaseMediator";
+
+LoadScreenMediator={
+}
+
+function LoadScreenMediator:create()
+	self.__index = self;
+	newTable={};
+    return setmetatable(newTable, self);
+end
+
+function LoadScreenMediator:init()
+	print("LoadScreenMediator init");
+end

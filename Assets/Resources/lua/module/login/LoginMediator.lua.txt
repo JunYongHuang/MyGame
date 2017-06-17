@@ -1,0 +1,9 @@
+require "lua.BaseMediator";
+
+LoginMediator={
+}
+
+
+function LoginMediator:init()
+	print("LoginMediator init");
+end

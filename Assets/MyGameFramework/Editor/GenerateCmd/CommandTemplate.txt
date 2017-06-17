@@ -1,0 +1,8 @@
+﻿using Assets.MyGameFramework.Script.mvc.mymvc;
+
+namespace %Namespace%{
+	public class %ClassName%
+	{
+		%Functions%
+	}
+}

@@ -1,0 +1,9 @@
+﻿
+			public static %ReturnName% %FunctionName%(%Param%){
+				%ClassName% cmd =EasyCommandUtil.getInstance().getCacheEasyCommand("%Namespace%.%ClassName%") as %ClassName% ;
+				if(cmd==null){
+					cmd=new %ClassName%();
+					EasyCommandUtil.getInstance().setCacheEasyCommand("%Namespace%.%ClassName%",cmd);
+				}
+				cmd.%FunctionName%(%Param2%);
+			}
