@@ -3,7 +3,16 @@ require "lua.BaseMediator";
 LoginMediator={
 }
 
+function LoginMediator:create()
+	self.__index = self;
+	newTable={};
+    return setmetatable(newTable, self);
+end
 
-function LoginMediator:init()
+function LoginMediator:init(view)
 	print("LoginMediator init");
+end
+
+function LoginMediator:inited()
+	print("LoginMediator inited");
 end

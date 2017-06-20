@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine.SceneManagement;
 
 namespace MyGameFramework
 {
@@ -11,7 +12,7 @@ namespace MyGameFramework
         private static GameSceneManage _instance;
         public delegate void SwitchFunc(object obj =null);
         private int _curSceneID;
-        private Dictionary<int, ISceneSwitchCommand> _map;
+        private Dictionary<int, ISceneSwitchCommand> _extralCommandMap;
 
         public static GameSceneManage getInstance()
         {
@@ -25,15 +26,14 @@ namespace MyGameFramework
         public GameSceneManage()
         {
             _curSceneID = 0;
-            _map = new Dictionary<int, ISceneSwitchCommand>();
-            addSceneFunc((int)GameConst.SceneName.Login, new SwitchLoginCommand());
+            _extralCommandMap = new Dictionary<int, ISceneSwitchCommand>();
         }
 
 
 
-        private void addSceneFunc(int scene, ISceneSwitchCommand command)
+        public void addExtralSceneFunc(int scene, ISceneSwitchCommand command)
         {
-            _map[scene] = command;
+            _extralCommandMap[scene] = command;
         }
 
         public void switchScene(GameConst.SceneName scene,Object param=null)
@@ -42,21 +42,35 @@ namespace MyGameFramework
             if (_curSceneID == sceneID) return;
             ISceneSwitchCommand command;
             //old scene
-            if (_map.ContainsKey(_curSceneID))
+            if (_extralCommandMap.ContainsKey(_curSceneID))
             {
-                command = _map[_curSceneID];
+                command = _extralCommandMap[_curSceneID];
                 if (command != null)
                 {
                     command.leaveScene(param);
                 }
             }
             //new scene
-            command = _map[sceneID];
-            if (command != null)
+            if (_extralCommandMap.ContainsKey(sceneID))
             {
-                command.enterScene(param);
+                command = _extralCommandMap[sceneID];
+                if (command != null)
+                {
+                    command.enterScene(param);
+                }
             }
             _curSceneID = sceneID;
+            loadNextScene(_curSceneID);
+        }
+
+        public int getNextSceneID()
+        {
+            return _curSceneID;
+        }
+
+        private void loadNextScene(int sceneID)
+        {
+            SceneManager.LoadScene((int)GameConst.SceneName.Load);
         }
 
     }

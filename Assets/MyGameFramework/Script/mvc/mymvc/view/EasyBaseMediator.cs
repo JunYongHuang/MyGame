@@ -4,18 +4,39 @@ using System.Linq;
 using System.Text;
 
 
-public class EasyBaseMediator
+public class EasyBaseMediator:IEasyBaseMediator
 {
+    protected EasyBaseView _baseView;
+
+
+
     public EasyBaseMediator()
     {
     }
 
-    public void init()
+    public void dispose()
+    {
+        _baseView = null;
+    }
+
+    public IEasyBaseMediator create()
+    {
+        return this;
+    }
+
+    public void init(EasyBaseView view)
+    {
+        _baseView = view;
+        initComponent();
+    }
+
+
+    virtual protected void initComponent()
     {
 
     }
 
-    public void dispose()
+    virtual public void inited()
     {
 
     }

@@ -8,7 +8,7 @@ using XLua;
 public interface IEasyBaseMediator
 {
     IEasyBaseMediator create();
-    void init();
-
+    void init(EasyBaseView view);
+    void inited();
 }
 

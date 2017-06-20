@@ -12,7 +12,7 @@ namespace Assets.MyGameFramework.Script.module.login.command
     {
         public void enterScene(object param)
         {
-            SceneManager.LoadScene((int)GameConst.SceneName.Login);
+            SceneManager.LoadScene((int)GameConst.SceneName.Load);
         }
 
         public void leaveScene(object param)
