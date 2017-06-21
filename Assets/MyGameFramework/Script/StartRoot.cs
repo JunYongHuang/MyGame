@@ -17,8 +17,4 @@ public class StartRoot : MonoBehaviour
         _facade.startUp();
     }
 
-    void Update()
-    {
-        LuaManager.getInstance().tick();
-    }
 }

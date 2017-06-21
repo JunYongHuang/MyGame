@@ -32,17 +32,13 @@ namespace Assets.MyGameFramework.Script.module.load.view
         private IEnumerator LoadScene()
         {
             _mAsyncOperation = SceneManager.LoadSceneAsync(GameSceneManage.getInstance().getNextSceneID());
-            _mAsyncOperation.allowSceneActivation = false;
-            LoggerManager.Debug<float>("load screen", _mAsyncOperation.progress);
+            LoggerManager.Debug<int>("load", 1);
             while (!_mAsyncOperation.isDone && _mAsyncOperation.progress < 0.8f)
             {
                 _updateProgress.currentAmout = (int)(_mAsyncOperation.progress * 100);
                 yield return _mAsyncOperation;
             }
             _updateProgress.currentAmout = 100;
-            _mAsyncOperation.allowSceneActivation = true;
-            SceneManager.UnloadScene((int)GameConst.SceneName.Login);
-  
         }
     }
 }

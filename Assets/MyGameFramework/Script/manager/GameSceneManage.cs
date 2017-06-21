@@ -1,12 +1,13 @@
-﻿using Assets.MyGameFramework.Script.module.login.command;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine.SceneManagement;
+using XLua;
 
 namespace MyGameFramework
 {
+    [CSharpCallLua]
     public class GameSceneManage
     {
         private static GameSceneManage _instance;
@@ -36,9 +37,9 @@ namespace MyGameFramework
             _extralCommandMap[scene] = command;
         }
 
-        public void switchScene(GameConst.SceneName scene,Object param=null)
+        public void switchScene(int scene,Object param=null)
         {
-            int sceneID = (int)scene;
+            int sceneID = scene;
             if (_curSceneID == sceneID) return;
             ISceneSwitchCommand command;
             //old scene

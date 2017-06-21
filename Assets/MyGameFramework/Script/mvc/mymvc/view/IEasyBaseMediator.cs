@@ -10,5 +10,6 @@ public interface IEasyBaseMediator
     IEasyBaseMediator create();
     void init(EasyBaseView view);
     void inited();
+    void update();
 }
 

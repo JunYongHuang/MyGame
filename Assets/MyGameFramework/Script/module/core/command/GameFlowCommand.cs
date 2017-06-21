@@ -10,7 +10,7 @@ namespace Assets.MyGameFramework.Script.module.core.command
     {
         public void gotoLogin()
         {
-            GameSceneManage.getInstance().switchScene(GameConst.SceneName.Login);
+            GameSceneManage.getInstance().switchScene((int)GameConst.SceneName.Login);
         }
     }
 }

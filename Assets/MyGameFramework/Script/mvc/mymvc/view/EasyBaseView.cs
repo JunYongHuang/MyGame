@@ -72,7 +72,7 @@ public class EasyBaseView : MonoBehaviour, IEasyDisposable
         Dispose();
     }
 
-    protected void initSubCompoonentProp()
+    protected void initSubComponentProp()
     {
         Type type = this.GetType();
         PropertyInfo[] props = type.GetProperties();
@@ -93,6 +93,36 @@ public class EasyBaseView : MonoBehaviour, IEasyDisposable
             object[] injections = field.GetCustomAttributes(typeof(SubComponent), true);
             if (injections.Length != 0)
                 childrenForField[field.Name] = field;
+        }
+
+        foreach (Transform t in this.GetComponentsInChildren<Transform>())
+        {
+            if (childrenForProp.Keys.Contains(t.name))
+            {
+                Type childType = childrenForProp[t.name].PropertyType;
+                if (childType == typeof(GameObject))
+                    childrenForProp[t.name].SetValue(this, t.gameObject, null);
+                else
+                {
+                    Component childComp = t.GetComponent(childType);
+                    childrenForProp[t.name].SetValue(this, childComp, null);
+                }
+
+                childrenForProp.Remove(t.name);
+            }
+            else if (childrenForField.Keys.Contains(t.name))
+            {
+                Type childType = childrenForField[t.name].FieldType;
+                if (childType == typeof(GameObject))
+                    childrenForField[t.name].SetValue(this, t.gameObject);
+                else
+                {
+                    Component childComp = t.GetComponent(childType);
+                    childrenForField[t.name].SetValue(this, childComp);
+                }
+
+                childrenForField.Remove(t.name);
+            }
         }
 
         foreach (KeyValuePair<string, PropertyInfo> pair in childrenForProp)
@@ -129,18 +159,6 @@ public class EasyBaseView : MonoBehaviour, IEasyDisposable
         }
     }
 
-    void Awake()
-    {
-        initMediator();
-        initSubCompoonentProp();
-        if (mediator != null)
-        {
-            mediator.init(this);
-            StartCoroutine(runInited());
-        }
-
-    }
-
     IEnumerator runInited()
     {
         yield return 1;
@@ -149,5 +167,25 @@ public class EasyBaseView : MonoBehaviour, IEasyDisposable
             mediator.inited();
         }
 
+    }
+
+    void Awake()
+    {
+        initSubComponentProp();
+        initMediator();
+        if (mediator != null)
+        {
+            mediator.init(this);
+            StartCoroutine(runInited());
+        }
+
+    }
+
+    public void Update()
+    {
+        if (mediator != null)
+        {
+            mediator.update();
+        }
     }
 }

@@ -9,8 +9,9 @@ namespace MyGameFramework
     {
         public enum SceneName
         {
-            Load = 1,
-            Login = 2
+            Load = 2,
+            Login = 3,
+            Game=4
         }
     }
 }

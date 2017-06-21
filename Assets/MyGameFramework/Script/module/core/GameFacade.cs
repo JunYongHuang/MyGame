@@ -1,12 +1,15 @@
 ﻿using Assets.MyGameFramework.Script.module.core.command;
 using MyGameFramework;
+using UnityEngine;
 
 public class GameFacade: EasyFacade
 {
+    private float _lastGCTime;
+    internal const float GCInterval = 1;//1 second 
 
     public GameFacade() : base()
     {
-
+        _lastGCTime = 0;
     }
 
     /// <summary>
@@ -19,6 +22,10 @@ public class GameFacade: EasyFacade
 
     public void update()
     {
-        LuaManager.getInstance().tick();
+        if (Time.time - LuaBehaviour.lastGCTime > GCInterval)
+        {
+            LuaManager.getInstance().tick();
+            _lastGCTime = Time.time;
+        }
     }
 }

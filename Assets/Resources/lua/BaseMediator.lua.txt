@@ -1,3 +1,30 @@
 BaseMediator={
-	__index=BaseMediator;
+
 }
+
+function BaseMediator:create()
+	self.__index = self;
+	newTable={};
+    return setmetatable(newTable, self);
+end
+
+function BaseMediator:init(view)
+	self.view=view;
+	print("BaseMediator init");
+end
+
+function BaseMediator:inited()
+	print("BaseMediator inited");
+end
+
+function BaseMediator:update()
+	print("update");
+end
+
+BaseMediator.funcMap={"create","init","inited","update"};
+
+function BaseMediator:SetChildClass(childClass)
+	for key, val in pairs(BaseMediator.funcMap) do
+		childClass[val]=BaseMediator[val];
+	end
+end;

@@ -6,10 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/MyGameFramework/Scene/Edit.unity
+  - enabled: 1
     path: Assets/MyGameFramework/Scene/Start.unity
   - enabled: 1
     path: Assets/MyGameFramework/Scene/Load.unity
   - enabled: 1
     path: Assets/MyGameFramework/Scene/Login.unity
   - enabled: 1
-    path: Assets/MyGameFramework/Scene/Edit.unity
+    path: Assets/MyGameFramework/Scene/Game.unity

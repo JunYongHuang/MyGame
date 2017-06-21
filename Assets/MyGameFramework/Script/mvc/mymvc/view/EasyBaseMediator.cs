@@ -40,4 +40,9 @@ public class EasyBaseMediator:IEasyBaseMediator
     {
 
     }
+
+    virtual public void update()
+    {
+
+    }
 }

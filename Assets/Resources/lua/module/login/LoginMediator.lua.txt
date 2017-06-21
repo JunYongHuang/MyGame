@@ -2,17 +2,13 @@ require "lua.BaseMediator";
 
 LoginMediator={
 }
+BaseMediator:SetChildClass(LoginMediator)
 
-function LoginMediator:create()
-	self.__index = self;
-	newTable={};
-    return setmetatable(newTable, self);
-end
-
-function LoginMediator:init(view)
-	print("LoginMediator init");
-end
-
-function LoginMediator:inited()
-	print("LoginMediator inited");
+local isInput=false;
+function LoginMediator:update()
+	if(isInput) then return end;
+	if(CS.UnityEngine.Input:GetMouseButton(0)) then
+		isInput=true;
+		CS.MyGameFramework.GameSceneManage:getInstance():switchScene(4);
+	end
 end
